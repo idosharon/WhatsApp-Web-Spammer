@@ -1,1 +1,1 @@
-# whatsapp_web_spammer
+# Whatsapp web image spammer
