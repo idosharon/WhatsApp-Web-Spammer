@@ -58,7 +58,7 @@ python spammer.py
 
 That’s it! Good luck.
 
-## Authors
+## Author
 
 Created by Ido Sharon 🐶 
 
