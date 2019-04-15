@@ -3,20 +3,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import time
-import platform
-import os, sys
-import requests
 from pynput.keyboard import Key, Controller
 from distutils.util import strtobool
 from selenium.webdriver.common.action_chains import ActionChains
+import time
+import platform
+import os, sys
+
 
 #### All the Modes functions:
 
 # image spammer function
 def images_spammer():
 	# welcome to the function
-	print("	Ok, so images spaming! let's get started!\n")
+	print("\nOk, so images spaming! let's get started!\n")
 
 	# get max
 	max = input("	please enter how much would you like to spam your frind? \n	** don't make a large number it will take a lot of time and it can make bugs!\n 	so please:")
@@ -40,6 +40,8 @@ def images_spammer():
 	else:
 		image_subject = raw_input("	Okay, what is the subject of your images?: ").lower()
 		image_subject = "1600x900/?" + image_subject
+
+	print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
 
 	for i in range(min, max):
 		# open unsplash
@@ -93,16 +95,18 @@ def images_spammer():
 # text spammer function
 def text_spammer(max):
 	# welcome to the function
-	print("Alright, so text spaming! let's get started!")
+	print("\nAlright, so text spaming! let's get started!")
 
 	# get max
-	max = input("	please enter how much would you like to spam your frind? \n	** don't make a large number it will take a lot of time and it can make bugs!\n 	so please:")
+	max = input("	please enter how much would you like to spam your frind?:")
 
 	# check max
 	if max <= 0:
 		print("			You have to enter a number that is bigger then 0, try again later")
 		exit()
 		driver.close()
+
+	print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
 
 	massage = raw_input("\n\n	What is your massage?: ")
 	print("max is: " + str(max))
@@ -133,7 +137,18 @@ def text_spammer(max):
 
 # sticker spammer function
 def sticker_spammer():
-	print("So sticker spaming! let's get started!\n")
+	print("\nSo sticker spaming! let's get started!\n")
+
+	# get max
+	max = input("	please enter how much would you like to spam your frind?:")
+
+	# check max
+	if max <= 0:
+		print("			You have to enter a number that is bigger then 0, try again later")
+		exit()
+		driver.close()
+
+	print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
 
 	# open whatsapp
 	driver.get("https://web.whatsapp.com/")
