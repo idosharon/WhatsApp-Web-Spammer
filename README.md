@@ -5,7 +5,7 @@ Using Python selenium to spam your friends in whatsapp.
 There are 3 modes for spamming:
 * random image spamming from [unsplash](https://source.unsplash.com/) 🖼️
 * text spamming 📝 
-* stickers spamming 
+* stickers spamming 👽
 
 ## Set Up
 
