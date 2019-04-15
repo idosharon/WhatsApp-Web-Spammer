@@ -15,25 +15,17 @@ There are 3 modes for spamming:
 
 ## Packages installation
 
-After installing pip and python run this commands in your bash to install the needed packages:
+After installing pip and python run theses commands in your bash to install the needed packages:
+
+First get into the folder:
+```bash
+cd ../whatsapp_web_spammer
+```
+
+Then Install the packages with this command:
 
 ```bash
-pip install --user selenium
-```
-```bash
-pip install --user time
-```
-```bash
-pip install --user pynput
-```
-```bash
-pip install --user platform
-```
-```bash
-pip install --user sys
-```
-```bash
-pip install --user os
+pip install --user -r requirements.txt
 ```
 
 ## Imports
