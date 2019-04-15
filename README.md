@@ -9,7 +9,7 @@ There are 3 modes for spamming:
 
 ## Set Up
 
-* Install Python
+* Install [Python](https://www.python.org/)
 
 * Use the package manager [pip](https://pip.pypa.io/en/stable/) to install selenium and the other packages 📦.
 
