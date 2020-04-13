@@ -9,17 +9,98 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 import platform
 import os, sys
+import requests
+import json
 
+delay = 6
 
 #### All the Modes functions:
+
+# image spammer function
+def gifs_spammer():
+	# welcome to the function
+	print("\nOk, so Gif spaming! let's get started!\n")
+
+	# check max
+	if max <= 0:
+		print("			You have to enter a number that is bigger then 0, try again later")
+		exit()
+		driver.close()
+
+	# print max
+	print("max is: " + str(max))
+
+	# image random ask
+	gif_subject = input("	Okay, what is the subject of your gifs?: ").lower()
+
+	print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
+
+	# open whatsapp
+	driver.get("https://web.whatsapp.com/")
+
+	# delay
+	time.sleep(delay)
+
+	# find target
+	x_arg = '//span[contains(@title,"' + target + '")]'
+	group_title = wait.until(EC.presence_of_element_located((
+		By.XPATH, x_arg)))
+	group_title.click()
+
+	# delay
+	time.sleep(1)
+
+	for r in range(1, max/5):
+		for i in range(min, max):
+
+			print(r,i)
+
+			# emoji_button click
+			emoji_button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div/div[2]/button')
+			emoji_button.click()
+
+			# delay
+			time.sleep(1)
+
+			# gifs_button
+			gifs_button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div/div[3]')
+			gifs_button.click()
+
+			time.sleep(3)
+
+			search = driver.find_element_by_xpath('//*[@id="main"]/footer/div[2]/div/div[3]/div[1]/div[1]/div[2]/div/span/div/label/div/input')
+			search.send_keys(gif_subject)
+
+			time.sleep(1)
+
+			r_string = str(r)
+
+			path = '//*[@id="main"]/footer/div[2]/div/div[3]/div[1]/div[1]/div[2]/div/div/div/div/div[' + r_string + ']/div[1]'
+			print(path)
+
+			gif = driver.find_element_by_xpath('//*[@id="main"]/footer/div[2]/div/div[3]/div[1]/div[1]/div[2]/div/div/div/div/div[' + r_string + ']/div[1]')
+			gif.click()
+
+			# delay
+			time.sleep(1.5)
+
+			# send img
+			keyboard.press(Key.enter)
+			keyboard.release(Key.enter)
+
+			# print i
+			print(str(i))
+
+			time.sleep(1)
+
+
+
+
 
 # image spammer function
 def images_spammer():
 	# welcome to the function
 	print("\nOk, so images spaming! let's get started!\n")
-
-	# get max
-	max = input("	please enter how much would you like to spam your frind? \n	** don't make a large number it will take a lot of time and it can make bugs!\n 	so please:")
 
 	# check max
 	if max <= 0:
@@ -35,10 +116,10 @@ def images_spammer():
 	image_subject = "random"
 
 	# image random ask
-	if strtobool(raw_input("\n\n	Would You like a random images? [Yes/No] : ")):
-		print "	Okay, I will spam", target ,"with",image_subject,"images"
+	if strtobool(input("\n\n	Would You like a random images? [Yes/No] : ")):
+		print("	Okay, I will spam", target ,"with",image_subject,"images")
 	else:
-		image_subject = raw_input("	Okay, what is the subject of your images?: ").lower()
+		image_subject = input("	Okay, what is the subject of your images?: ").lower()
 		image_subject = "1600x900/?" + image_subject
 
 	print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
@@ -65,7 +146,7 @@ def images_spammer():
 		driver.get("https://web.whatsapp.com/")
 
 		# delay
-		time.sleep(4)
+		time.sleep(delay)
 
 		# find target
 		x_arg = '//span[contains(@title,"' + target + '")]'
@@ -86,19 +167,25 @@ def images_spammer():
 		keyboard.press(Key.enter)
 		keyboard.release(Key.enter)
 
-		# delay
-		time.sleep(5)
+		# enter i into massage
+		message = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')[0]
+		message.send_keys(i)
 
-		if i == max+1:
-			print("Thank you! I finish here.")
+		# send massage
+		sendbutton = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[3]/button')[0]
+		sendbutton.click()
+
+		# print i
+		print(str(i))
+
+		# delay
+		time.sleep(delay)
+
 
 # text spammer function
 def text_spammer(max):
 	# welcome to the function
 	print("\nAlright, so text spaming! let's get started!")
-
-	# get max
-	max = input("	please enter how much would you like to spam your frind?:")
 
 	# check max
 	if max <= 0:
@@ -108,14 +195,14 @@ def text_spammer(max):
 
 	print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
 
-	massage = raw_input("\n\n	What is your massage?: ")
+	massage = input("\n\n	What is your massage?: ")
 	print("max is: " + str(max))
 
 	# open whatsapp
 	driver.get("https://web.whatsapp.com/")
 
 	# delay
-	time.sleep(4)
+	time.sleep(delay)
 
 	# find target
 	x_arg = '//span[contains(@title,"' + target + '")]'
@@ -132,15 +219,12 @@ def text_spammer(max):
 		sendbutton = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[3]/button')[0]
 		sendbutton.click()
 
-		if i == max+1:
-			print("Thank you! I finish here.")
+		# print i
+		print(str(i))
 
 # sticker spammer function
 def sticker_spammer():
 	print("\nSo sticker spaming! let's get started!\n")
-
-	# get max
-	max = input("	please enter how much would you like to spam your frind?:")
 
 	# check max
 	if max <= 0:
@@ -154,7 +238,7 @@ def sticker_spammer():
 	driver.get("https://web.whatsapp.com/")
 
 	# delay
-	time.sleep(4)
+	time.sleep(delay)
 
 	# find target
 	x_arg = '//span[contains(@title,"' + target + '")]'
@@ -166,21 +250,24 @@ def sticker_spammer():
 	time.sleep(1)
 
 	# emoji_button click
-	emoji_button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div/div[2]/button')
+	emoji_button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div/button[2]')
 	emoji_button.click()
 
 	# delay
 	time.sleep(1)
 
 	# sticker_button
-	sticker_button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div/div[4]/button')
+	sticker_button = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div/button[4]')
 	sticker_button.click()
 
 	time.sleep(2)
 
-
 	for i in range(min,max):
+		# send
 		driver.find_element_by_xpath('//*[@id="main"]/footer/div[2]/div/div[3]/div/div/div[2]/div/div[1]/div/img').click()
+		
+		# print i
+		print(str(i))
 
 print("\n\nWelcome to the whatsapp web image spammer! \nplease answer the next questions:\n")
 
@@ -199,14 +286,14 @@ elif platform.system() == "Linux":
 	exit()
 
 # target
-target = raw_input("	Who is the target?: ")
+target = input("	Who is the target?: ")
 if len(target) < 0:
 	print("			! You have to enter a target, try again later")
 	exit()
 	driver.close()
 
 # mode
-mode = raw_input("	Please choose mode:\n		(a) image spaming [type a]\n		(b) text spaming [type b]\n		(c) sticker spaming [type c]\n		I choose: ")
+mode = input("	Please choose mode:\n		(a) image spaming [type a]\n		(b) text spaming [type b]\n		(c) sticker spaming [type c]\n		(d) gifs spaming [type d]\n		I choose: ")
 
 # drivers
 keyboard = Controller()
@@ -215,6 +302,9 @@ driver = webdriver.Chrome('./chromedriver')
 # wait
 wait = WebDriverWait(driver, 600)
 
+# get max
+max = int(input("	please enter how much would you like to spam your frind? "))
+
 # mode chooser
 if mode == "a":
 	images_spammer()
@@ -222,6 +312,8 @@ elif mode == "b":
 	text_spammer(max)
 elif mode == "c":
 	sticker_spammer()
+elif mode == "d":
+	gifs_spammer()
 else :
 	print("	! please next time enter a real mode")
 	exit()
