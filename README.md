@@ -1,4 +1,4 @@
-# Advance Whatsapp web spammer
+# Advanced Whatsapp web spammer
 
 Using Python selenium to spam your friends in whatsapp.
 
