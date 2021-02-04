@@ -19,7 +19,7 @@ After installing pip and python run theses commands in your bash to install the 
 
 First get into the folder:
 ```bash
-cd ../whatsapp_web_spammer
+cd /whatsapp_web_spammer
 ```
 
 Then Install the packages with this command:
@@ -49,7 +49,7 @@ import os, sys
 
 Get into the folder in your bash with the command:
 ```bash
-cd ../whatsapp_web_spammer
+cd /whatsapp_web_spammer
 ```
 And then Run the python running command:
 ```
