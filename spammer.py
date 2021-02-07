@@ -11,8 +11,11 @@ import platform
 import os, sys
 import requests
 import json
+import emojis
 
 delay = 6
+
+min_delayed_spam = 0
 
 #### All the Modes functions:
 
@@ -93,15 +96,22 @@ def gifs_spammer():
 
 			time.sleep(1)
 
+			time.sleep(min_delayed_spam * 60)
+
 
 
 
 
 # image spammer function
 def images_spammer():
+
 	# welcome to the function
 	print("\nOk, so images spaming! let's get started!\n")
 
+#	costume_image = strtobool(input("		Would you like to enable costume image? [Yes/No] ").lower())
+#
+#	url = input("	Enter url for image: ") if costume_image else ""
+#
 	# check max
 	if max <= 0:
 		print("			You have to enter a number that is bigger then 0, try again later")
@@ -110,43 +120,44 @@ def images_spammer():
 
 	# print max
 	print("max is: " + str(max))
-
-
-	# image defult subject
-	image_subject = "random"
-
-	# image random ask
-	if strtobool(input("\n\n	Would You like a random images? [Yes/No] : ")):
-		print("	Okay, I will spam", target ,"with",image_subject,"images")
-	else:
-		image_subject = input("	Okay, what is the subject of your images?: ").lower()
-		image_subject = "1600x900/?" + image_subject
+#
+#
+#	# image defult subject
+#	image_subject = "random"
+#
+#	if costume_image == False:
+#		# image random ask
+#		if strtobool(input("\n\n	Would You like a random images? [Yes/No] : ")):
+#			print("	Okay, I will spam", target ,"with",image_subject,"images")
+#		else:
+#			image_subject = input("	Okay, what is the subject of your images?: ").lower()
+#			image_subject = "1600x900/?" + image_subject
 
 	print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
 
 	for i in range(min, max):
-		# open unsplash
-		driver.get("https://source.unsplash.com/"+ image_subject)
-
-		if driver.current_url == "https://images.unsplash.com/source-404?fit=crop&fm=jpg&h=800&q=60&w=1200":
-			print("Please enter a real subject")
-			exit()
-			driver.close()
-
-		# copy img
-		keyboard.press(system_control)
-		keyboard.press('c')
-		keyboard.release('c')
-		keyboard.release(system_control)
-
-		# delay
-		time.sleep(1)
+#		# open unsplash
+#		driver.get(("https://source.unsplash.com/"+ image_subject) if costume_image == False else url)
+#
+#		if driver.current_url == "https://images.unsplash.com/source-404?fit=crop&fm=jpg&h=800&q=60&w=1200":
+#			print("Please enter a real subject")
+#			exit()
+#			driver.close()
+#
+#		# copy img
+#		keyboard.press(system_control)
+#		keyboard.press('c')
+#		keyboard.release('c')
+#		keyboard.release(system_control)
+#
+#		# delay
+#		time.sleep(1)
 
 		# open whatsapp
-		driver.get("https://web.whatsapp.com/")
-
-		# delay
-		time.sleep(delay)
+#		driver.get("https://web.whatsapp.com/")
+#
+#		# delay
+#		time.sleep(delay)
 
 		# find target
 		x_arg = '//span[contains(@title,"' + target + '")]'
@@ -159,9 +170,9 @@ def images_spammer():
 		keyboard.press('v')
 		keyboard.release('v')
 		keyboard.release(system_control)
-
-		# delay
-		time.sleep(1)
+#
+#		# delay
+#		time.sleep(1)
 
 		# send img
 		keyboard.press(Key.enter)
@@ -178,10 +189,34 @@ def images_spammer():
 		# print i
 		print(str(i))
 
-		# delay
-		time.sleep(delay)
+#		# delay
+#		time.sleep(delay)
 
+		time.sleep(min_delayed_spam * 60)
 
+def writing(min):
+	# welcome to the function
+	print("\nAlright, so text spaming! let's get started!")
+	# print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
+	
+	# open whatsapp
+	driver.get("https://web.whatsapp.com/")
+
+	x_arg = '//span[contains(@title,"' + target + '")]'
+	group_title = wait.until(EC.presence_of_element_located((By.XPATH, x_arg)))
+	group_title.click()
+	
+	for i in range(0, min):
+		# enter i into massage
+		message = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')[0]
+		message.send_keys(emojis.encode(str(i)))
+		
+		# print i
+		print(str(i))
+
+		time.sleep(0.1)
+		message.send_keys("\u0008")
+	
 # text spammer function
 def text_spammer(max):
 	# welcome to the function
@@ -213,7 +248,7 @@ def text_spammer(max):
 	for i in range(min, max):
 		# enter i into massage
 		message = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')[0]
-		message.send_keys(massage,i)
+		message.send_keys(emojis.encode(massage))
 
 		# send massage
 		sendbutton = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[3]/button')[0]
@@ -221,6 +256,8 @@ def text_spammer(max):
 
 		# print i
 		print(str(i))
+
+		time.sleep(min_delayed_spam * 60 + sec_delayed_spam)
 
 # sticker spammer function
 def sticker_spammer():
@@ -269,6 +306,8 @@ def sticker_spammer():
 		# print i
 		print(str(i))
 
+		time.sleep(min_delayed_spam * 60)
+
 print("\n\nWelcome to the whatsapp web image spammer! \nplease answer the next questions:\n")
 
 # vars
@@ -305,6 +344,13 @@ wait = WebDriverWait(driver, 600)
 # get max
 max = int(input("	please enter how much would you like to spam your frind? "))
 
+delayed_spamming = {"true":True,"false":False}[input("		Would you like to enable quite spamming? [True/False] ").lower()]
+
+min_delayed_spam = int(input("	Ok, how many minutes would you like to delay between every massage?: ")) if delayed_spamming else 0
+sec_delayed_spam = int(input("  Ok, how many seconds would you like to delay between every massage?: ")) if delayed_spamming else 0
+
+driver.get("https://web.whatsapp.com/")
+
 # mode chooser
 if mode == "a":
 	images_spammer()
@@ -314,7 +360,9 @@ elif mode == "c":
 	sticker_spammer()
 elif mode == "d":
 	gifs_spammer()
-else :
+elif mode == "w":
+	writing(int(input("	Ok, how many minutes would you like to write the massage?: ")))
+else:
 	print("	! please next time enter a real mode")
 	exit()
 	driver.close()
