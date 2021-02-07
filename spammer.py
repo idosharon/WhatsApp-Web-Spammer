@@ -198,25 +198,25 @@ def writing(min):
 	# welcome to the function
 	print("\nAlright, so text spaming! let's get started!")
 	# print("Okay now scan the qr code on the whatsapp web and let the magic begin.")
-	
+
 	# open whatsapp
 	driver.get("https://web.whatsapp.com/")
 
 	x_arg = '//span[contains(@title,"' + target + '")]'
 	group_title = wait.until(EC.presence_of_element_located((By.XPATH, x_arg)))
 	group_title.click()
-	
+
 	for i in range(0, min):
 		# enter i into massage
 		message = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')[0]
 		message.send_keys(emojis.encode(str(i)))
-		
+
 		# print i
 		print(str(i))
 
 		time.sleep(0.1)
 		message.send_keys("\u0008")
-	
+
 # text spammer function
 def text_spammer(max):
 	# welcome to the function
@@ -247,7 +247,7 @@ def text_spammer(max):
 
 	for i in range(min, max):
 		# enter i into massage
-		message = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')[0]
+		message = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
 		message.send_keys(emojis.encode(massage))
 
 		# send massage
@@ -302,7 +302,7 @@ def sticker_spammer():
 	for i in range(min,max):
 		# send
 		driver.find_element_by_xpath('//*[@id="main"]/footer/div[2]/div/div[3]/div/div/div[2]/div/div[1]/div/img').click()
-		
+
 		# print i
 		print(str(i))
 
