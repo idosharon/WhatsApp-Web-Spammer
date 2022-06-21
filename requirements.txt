@@ -1,5 +1,5 @@
 
-numpy==1.16.2
+numpy==1.22.0
 pandas==0.24.2
 pynput==1.4.2
 selenium==3.141.0
